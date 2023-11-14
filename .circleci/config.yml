@@ -1,0 +1,65 @@
+version: 2
+jobs:
+  build:
+    parallelism: 1
+    docker:
+      - image: circleci/ruby:2.3
+    working_directory: ~/pbxx
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - ruby-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile" }}-{{ checksum "sendgrid_toolkit.gemspec" }}
+            - ruby-cache-{{ arch }}-{{ .Branch }}
+            - ruby-cache
+
+      - run:
+          name: Download cc-test-reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+
+      - run:
+          name: Update RubyGems
+          command: sudo gem update --system 3.3.25
+
+      - run:
+          name: Install bundler
+          command: gem install bundler
+
+      - run:
+          name: Configure bundler
+          command: bundle config set --local path 'vendor/bundle'
+
+      - run:
+          name: Bundle Install
+          command: bundle check || bundle install --jobs=4 --retry=3
+
+      - save_cache:
+          key: ruby-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile" }}-{{ checksum "sendgrid_toolkit.gemspec" }}
+          paths:
+            - vendor/bundle
+
+      - run:
+          name: Run tests
+          command: |
+            ./cc-test-reporter before-build
+            bundle exec rspec --profile 10 \
+                              --format RspecJunitFormatter \
+                              --out test_results/rspec.xml \
+                              --format progress
+            ./cc-test-reporter after-build -t simplecov --exit-code $?
+
+      - store_test_results:
+          path: test_results
+
+      - run:
+          name: Upload to Gemfury
+          context: gem
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              gem build sendgrid_toolkit.gemspec
+              curl -F package=@sendgrid_toolkit-1.4.0.gem q
+            fi
+
