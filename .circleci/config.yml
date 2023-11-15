@@ -45,7 +45,8 @@ jobs:
           name: Run tests
           command: |
             ./cc-test-reporter before-build
-            bundle exec rspec --profile 10 \
+            bundle exec rspec spec
+                              --profile 10 \
                               --format RspecJunitFormatter \
                               --out test_results/rspec.xml \
                               --format progress

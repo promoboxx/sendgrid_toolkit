@@ -7,4 +7,9 @@ group :development do
   gem "jeweler"
   gem "rspec", "~> 2.7.0"
   gem 'pry', '~> 0.10.3'
+  gem 'rspec_junit_formatter'
+end
+
+group :test do
+  gem 'rspec_junit_formatter'
 end
