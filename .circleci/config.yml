@@ -55,6 +55,6 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
               gem build sendgrid_toolkit.gemspec
-              curl -F package=@sendgrid_toolkit-1.5.0.gem https://$GEMFURY_PUSH_TOKEN@push.fury.io/promoboxx/
+              curl -F package=@sendgrid_toolkit-1.6.0.gem https://$GEMFURY_PUSH_TOKEN@push.fury.io/promoboxx/
             fi
 
