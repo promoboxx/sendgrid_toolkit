@@ -54,7 +54,7 @@ jobs:
           context: gem
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              gem build promoboxx_sendgrid_toolkit.gemspec
-              curl -F package=@promoboxx_sendgrid_toolkit-1.4.0.gem https://$GEMFURY_PUSH_TOKEN@push.fury.io/promoboxx/
+              gem build sendgrid_toolkit.gemspec
+              curl -F package=@sendgrid_toolkit-1.4.0.gem https://$GEMFURY_PUSH_TOKEN@push.fury.io/promoboxx/
             fi
 
