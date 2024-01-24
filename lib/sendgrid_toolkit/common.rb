@@ -15,7 +15,7 @@ module SendgridToolkit
           parse_message_time message
         end
       else
-        parse_message_time response
+        parse_message_time response.parsed_response
       end
       response
     end
