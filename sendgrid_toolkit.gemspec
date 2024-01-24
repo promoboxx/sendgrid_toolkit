@@ -5,7 +5,7 @@
 # stub: sendgrid_toolkit 1.4.0 ruby lib
 
 Gem::Specification.new do |s|
-  s.name = "promoboxx_sendgrid_toolkit"
+  s.name = "sendgrid_toolkit"
   s.version = "1.4.0"
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["promoboxx people"]
@@ -41,7 +41,7 @@ Gem::Specification.new do |s|
     'lib/sendgrid_toolkit/v3/groups.rb',
     'lib/sendgrid_toolkit/v3/unsubscribes.rb',
     'lib/sendgrid_toolkit/v3/abstract_sendgrid_client.rb',
-    "promoboxx_sendgrid_toolkit.gemspec",
+    "sendgrid_toolkit.gemspec",
     "spec/helper.rb",
     "spec/lib/sendgrid_toolkit/abstract_sendgrid_client_spec.rb",
     "spec/lib/sendgrid_toolkit/blocks_spec.rb",
