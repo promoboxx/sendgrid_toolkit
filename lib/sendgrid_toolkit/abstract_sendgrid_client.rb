@@ -39,7 +39,7 @@ module SendgridToolkit
 
     private
     def has_error?(response)
-      response.kind_of?(Hash) && response.has_key?('error')
+      response != nil && response.respond_to?(:key?) && response.key?('error')
     end
   end
 end
