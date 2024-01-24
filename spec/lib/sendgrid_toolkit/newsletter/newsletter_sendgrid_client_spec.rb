@@ -19,7 +19,7 @@ describe SendgridToolkit::NewsletterSendgridClient do
 
       sendgrid_client = SendgridToolkit::NewsletterSendgridClient.new("fakeuser", "fakepass")
 
-      sendgrid_client.send(:api_post, "lists", "add", opts).should eql({ 'message' => 'success' })
+      sendgrid_client.send(:api_post, "lists", "add", opts).parsed_response.should eql({ 'message' => 'success' })
     end
   end
 end

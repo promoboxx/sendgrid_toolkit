@@ -44,13 +44,7 @@ jobs:
       - run:
           name: Run tests
           command: |
-            ./cc-test-reporter before-build
             bundle exec rspec spec
-                              --profile 10 \
-                              --format RspecJunitFormatter \
-                              --out test_results/rspec.xml \
-                              --format progress
-            ./cc-test-reporter after-build -t simplecov --exit-code $?
 
       - store_test_results:
           path: test_results

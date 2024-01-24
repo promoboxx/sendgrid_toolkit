@@ -10,7 +10,7 @@ module SendgridToolkit
     def retrieve_with_timestamps(options = {})
       options.merge! :date => 1
       response = retrieve options
-      if response.is_a? Array
+      if response.respond_to?(:each)
         response.each do |message|
           parse_message_time message
         end

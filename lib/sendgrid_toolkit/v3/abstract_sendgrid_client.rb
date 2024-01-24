@@ -54,7 +54,7 @@ module SendgridToolkit
       end
 
       def error?(response)
-        response.is_a?(Hash) && response.key?('error')
+        response != nil && response.respond_to?(:key?) && response.key?('error')
       end
     end
   end
