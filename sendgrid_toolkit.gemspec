@@ -39,6 +39,7 @@ Gem::Specification.new do |s|
     "lib/sendgrid_toolkit/spam_reports.rb",
     "lib/sendgrid_toolkit/statistics.rb",
     "lib/sendgrid_toolkit/unsubscribes.rb",
+    'lib/sendgrid_toolkit/v3/bounces.rb',
     'lib/sendgrid_toolkit/v3/groups.rb',
     'lib/sendgrid_toolkit/v3/unsubscribes.rb',
     'lib/sendgrid_toolkit/v3/abstract_sendgrid_client.rb',
