@@ -22,9 +22,9 @@ module SendgridToolkit
 
       if response.code > 401
         raise(SendgridToolkit::SendgridServerError, "The SendGrid server returned an error. #{response.inspect}")
-      elsif has_error?(response) and
-          response['error'].respond_to?(:has_key?) and
-          response['error'].has_key?('code') and
+      elsif has_error?(response) &&
+          response['error'].respond_to?(:has_key?) &&
+          response['error'].has_key?('code') &&
           response['error']['code'].to_i == 401
         raise SendgridToolkit::AuthenticationFailed
       elsif has_error?(response)
