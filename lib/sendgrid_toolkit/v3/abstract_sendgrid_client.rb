@@ -18,7 +18,7 @@ module SendgridToolkit
         if (@api_user == "apikey")
           response = HTTParserParty.post("#{BASE_URI}/#{action_name}",
             body: options.to_json, format: :json,
-            headers: { 'Authorization' => "Bearer #{api_key}" })
+            headers: { 'Authorization' => "Bearer #{@api_key}" })
         else
           response = HTTParserParty.post("#{BASE_URI}/#{action_name}",
             body: options.to_json, format: :json,
@@ -31,7 +31,7 @@ module SendgridToolkit
         if (@api_user == "apikey")
           response = HTTParserParty.get("#{BASE_URI}/#{action_name}",
             query: options, format: :json,
-            headers: { 'Authorization' => "Bearer #{api_key}" })
+            headers: { 'Authorization' => "Bearer #{@api_key}" })
         else
           response = HTTParserParty.get("#{BASE_URI}/#{action_name}",
             query: options, format: :json,
@@ -44,7 +44,7 @@ module SendgridToolkit
         if (@api_user == "apikey")
           response = HTTParserParty.delete("#{BASE_URI}/#{action_name}",
             body: options, format: :json,
-            headers: { 'Authorization' => "Bearer #{api_key}" })
+            headers: { 'Authorization' => "Bearer #{@api_key}" })
         else
           response = HTTParserParty.delete("#{BASE_URI}/#{action_name}",
             body: options, format: :json,
