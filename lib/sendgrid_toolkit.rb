@@ -15,6 +15,7 @@ require 'sendgrid_toolkit/mail'
 require 'sendgrid_toolkit/v3/abstract_sendgrid_client'
 require 'sendgrid_toolkit/v3/bounces'
 require 'sendgrid_toolkit/v3/groups'
+require 'sendgrid_toolkit/v3/mail'
 require 'sendgrid_toolkit/v3/unsubscribes'
 
 require 'sendgrid_toolkit/newsletter/newsletter_sendgrid_client'

@@ -6,7 +6,7 @@
 
 Gem::Specification.new do |s|
   s.name = "sendgrid_toolkit"
-  s.version = "1.10.0"
+  s.version = "1.11.0"
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["promoboxx people"]
   s.date = "2014-03-04"
@@ -41,6 +41,7 @@ Gem::Specification.new do |s|
     "lib/sendgrid_toolkit/unsubscribes.rb",
     'lib/sendgrid_toolkit/v3/bounces.rb',
     'lib/sendgrid_toolkit/v3/groups.rb',
+    'lib/sendgrid_toolkit/v3/mail.rb',
     'lib/sendgrid_toolkit/v3/unsubscribes.rb',
     'lib/sendgrid_toolkit/v3/abstract_sendgrid_client.rb',
     "sendgrid_toolkit.gemspec",
