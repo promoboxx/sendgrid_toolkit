@@ -1,5 +1,7 @@
 source "http://rubygems.org"
 
+ruby file: ".ruby-version"
+
 gem "httparty", ">= 0.7.6"
 
 group :development do

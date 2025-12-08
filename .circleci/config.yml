@@ -3,7 +3,8 @@ jobs:
   test:
     parallelism: 1
     docker:
-      - image: circleci/ruby:2.3
+      - image: ruby:2.7.6
+
     working_directory: ~/pbxx
     steps:
       - checkout
@@ -22,11 +23,11 @@ jobs:
 
       - run:
           name: Update RubyGems
-          command: sudo gem update --system 3.3.25
+          command: gem update --system 3.4.22
 
       - run:
           name: Install bundler
-          command: gem install bundler
+          command: gem install bundler -v 2.4.22
 
       - run:
           name: Configure bundler
@@ -52,11 +53,11 @@ jobs:
   build:
     parallelism: 1
     docker:
-      - image: circleci/ruby:2.3
+      - image: ruby:2.7.6
     working_directory: ~/pbxx
     steps:
       - checkout
-      
+
       - restore_cache:
           keys:
             - ruby-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile" }}-{{ checksum "sendgrid_toolkit.gemspec" }}
@@ -75,7 +76,7 @@ jobs:
   upload:
     parallelism: 1
     docker:
-      - image: circleci/ruby:2.3
+      - image: ruby:2.7.6
     working_directory: ~/pbxx
     steps:
       - checkout
