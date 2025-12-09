@@ -2,6 +2,7 @@ require 'fakeweb'
 require 'sendgrid_toolkit'
 require 'rspec'
 require 'json'
+require 'pry'
 
 FakeWeb.allow_net_connect = false
 

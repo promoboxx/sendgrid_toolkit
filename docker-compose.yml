@@ -1,0 +1,9 @@
+version: '3.4'
+services:
+  sendgrid_toolkit:
+    build:
+      context: .
+    environment:
+      RUBY_OPT: -W:no-deprecated -W:no-experimental
+    volumes:
+      - .:/home/app/sendgrid_toolkit
