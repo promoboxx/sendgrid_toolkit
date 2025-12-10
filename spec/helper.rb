@@ -7,7 +7,7 @@ require 'pry'
 FakeWeb.allow_net_connect = false
 
 REGEX_ESCAPED_BASE_URI = "api\.sendgrid\.com/api"
-REGEX_ESCAPED_BASE_URI_V3 = 'api.sendgrid.com/v3/asm'
+REGEX_ESCAPED_BASE_URI_V3 = "api.sendgrid.com/v3"
 
 def backup_env
   @env_backup = Hash.new

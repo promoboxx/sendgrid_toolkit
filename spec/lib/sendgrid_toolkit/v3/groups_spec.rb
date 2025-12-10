@@ -3,7 +3,7 @@ require File.expand_path("#{File.dirname(__FILE__)}/../../../helper")
 describe SendgridToolkit::V3::Groups do
   before do
     FakeWeb.clean_registry
-    api_name = ENV['TEST_SMTP_USERNAME'] || 'fakeuser'
+    api_name = ENV['TEST_SMTP_USERNAME'] || 'apikey'
     api_key = ENV['TEST_SMTP_PASSWORD'] || 'fakepass'
     @obj = SendgridToolkit::V3::Groups.new(api_name, api_key)
   end
