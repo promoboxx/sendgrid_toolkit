@@ -10,32 +10,32 @@ describe SendgridToolkit::V3::AbstractSendgridClient do
 
   describe '#api_post' do
     it "throws error when authentication fails" do
-      FakeWeb.register_uri(:post, %r|https://#{REGEX_ESCAPED_BASE_URI_V3}/profile\.get\.json\?|, :body => '{"error":{"code":401,"message":"Permission denied, wrong credentials"}}')
-      @obj = SendgridToolkit::AbstractSendgridClient.new("fakeuser", "fakepass")
+      FakeWeb.register_uri(:get, "https://#{REGEX_ESCAPED_BASE_URI_V3}/user/profile", :body => '{"error":{"code":401,"message":"Permission denied, wrong credentials"}}')
+      @obj = SendgridToolkit::V3::AbstractSendgridClient.new("apikey", "fakepass")
       lambda {
-        @obj.send(:api_post, "profile", "get", {})
+        @obj.send(:api_get, "user/profile", {})
       }.should raise_error SendgridToolkit::AuthenticationFailed
     end
     it "thows error when sendgrid response is a server error" do
-      FakeWeb.register_uri(:post, %r|https://#{REGEX_ESCAPED_BASE_URI_V3}/profile\.get\.json\?|, :body => '{}', :status => ['500', 'Internal Server Error'])
-      @obj = SendgridToolkit::AbstractSendgridClient.new("someuser", "somepass")
+      FakeWeb.register_uri(:get, "https://#{REGEX_ESCAPED_BASE_URI_V3}/user/profile", :body => '{}', :status => ['500', 'Internal Server Error'])
+      @obj = SendgridToolkit::V3::AbstractSendgridClient.new("apikey", "fakepass")
       lambda {
-        @obj.send(:api_post, "profile", "get", {})
-      }.should raise_error SendgridToolkit::AuthenticationFailed
+        @obj.send(:api_get, "user/profile", {})
+      }.should raise_error SendgridToolkit::SendgridServerError
     end
     it "handles unexpected error responses gracefully" do
-      FakeWeb.register_uri(:post, %r|https://#{REGEX_ESCAPED_BASE_URI}/profile\.get\.json|, :body => '<html>Html formatted error</html>', :status => ['500', 'Internal Server Error'])
-      @obj = SendgridToolkit::AbstractSendgridClient.new("someuser", "somepass")
+      FakeWeb.register_uri(:get, "https://#{REGEX_ESCAPED_BASE_URI_V3}/user/profile", :body => '<html>Html formatted error</html>', :status => ['500', 'Internal Server Error'])
+      @obj = SendgridToolkit::V3::AbstractSendgridClient.new("apikey", "fakepass")
       lambda {
-        @obj.send(:api_post, "profile", "get", {})
+        @obj.send(:api_get, "user/profile", {})
       }.should raise_error SendgridToolkit::SendgridServerError, /<html>Html formatted error<\/html> - SendgridToolkit warning/
     end
     it "thows error when sendgrid response is an API error" do
-      FakeWeb.register_uri(:post, %r|https://#{REGEX_ESCAPED_BASE_URI_V3}/stats\.get\.json\?|, :body => '{"error": "error in end_date: end date is in the future"}', :status => ['400', 'Bad Request'])
-      @obj = SendgridToolkit::AbstractSendgridClient.new("someuser", "somepass")
+      FakeWeb.register_uri(:get, "https://#{REGEX_ESCAPED_BASE_URI_V3}/stats", :body => '{"error": "error in end_date: end date is in the future"}', :status => ['400', 'Bad Request'])
+      @obj = SendgridToolkit::V3::AbstractSendgridClient.new("apikey", "fakepass")
       lambda {
-        @obj.send(:api_post, "stats", "get", {})
-      }.should raise_error SendgridToolkit::SendgridServerError
+        @obj.send(:api_get, "stats", {})
+      }.should raise_error SendgridToolkit::APIError
     end
   end
 

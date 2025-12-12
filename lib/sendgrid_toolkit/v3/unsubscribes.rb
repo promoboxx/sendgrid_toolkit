@@ -4,7 +4,7 @@ module SendgridToolkit
       def add(options = {})
         fail NoGroupIdSpecified unless options[:group_id]
 
-        response = api_post("groups/#{options[:group_id]}/suppressions", options)
+        response = api_post("asm/groups/#{options[:group_id]}/suppressions", options)
         fail APIError if response.is_a?(Hash) && response.key?('errors')
         response
       end
@@ -12,7 +12,7 @@ module SendgridToolkit
       def delete(options = {})
         fail NoGroupIdSpecified unless options[:group_id]
 
-        response = api_delete("groups/#{options[:group_id]}/suppressions/#{options[:email]}", options)
+        response = api_delete("asm/groups/#{options[:group_id]}/suppressions/#{options[:email]}", options)
         fail APIError if response.is_a?(Hash) && response.key?('errors')
         response
       end
@@ -20,7 +20,7 @@ module SendgridToolkit
       def retrieve(options = {})
         fail NoGroupIdSpecified unless options[:group_id]
 
-        response = api_get("groups/#{options[:group_id]}/suppressions", options)
+        response = api_get("asm.groups/#{options[:group_id]}/suppressions", options)
         response
       end
     end
