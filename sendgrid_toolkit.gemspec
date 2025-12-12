@@ -16,8 +16,6 @@ Gem::Specification.new do |s|
     "README.md"
   ]
   s.files = [
-    ".rvmrc",
-    ".travis.yml",
     "Gemfile",
     "Gemfile.lock",
     "LICENSE.txt",
