@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build:
+  test:
     parallelism: 1
     docker:
       - image: circleci/ruby:2.3
@@ -49,12 +49,67 @@ jobs:
       - store_test_results:
           path: test_results
 
+  build:
+    parallelism: 1
+    docker:
+      - image: circleci/ruby:2.3
+    working_directory: ~/pbxx
+    steps:
+      - checkout
+      
+      - restore_cache:
+          keys:
+            - ruby-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile" }}-{{ checksum "sendgrid_toolkit.gemspec" }}
+
+      - run:
+          name: Build gem
+          context: gem
+          command: |
+            gem build sendgrid_toolkit.gemspec
+
+      - save_cache:
+          key: ruby-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile" }}-{{ checksum "sendgrid_toolkit.gemspec" }}-build
+          paths:
+            - .
+
+  upload:
+    parallelism: 1
+    docker:
+      - image: circleci/ruby:2.3
+    working_directory: ~/pbxx
+    steps:
+      - checkout
+
+      - restore_cache:
+          keys:
+            - ruby-cache-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile" }}-{{ checksum "sendgrid_toolkit.gemspec" }}-build
+
       - run:
           name: Upload to Gemfury
           context: gem
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              gem build sendgrid_toolkit.gemspec
-              curl -F package=@sendgrid_toolkit-1.11.0.gem https://$GEMFURY_PUSH_TOKEN@push.fury.io/promoboxx/
-            fi
+            curl -F package=@sendgrid_toolkit-1.11.0.gem https://$GEMFURY_PUSH_TOKEN@push.fury.io/promoboxx/
+
+workflows:
+  version: 2
+  build_and_upload:
+    jobs:
+      - test
+      - build:
+          requires:
+            - test
+      - ready_to_upload:
+          type: approval
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+      - upload:
+          requires:
+            - ready_to_upload
+          filters:
+            branches:
+              only: master
+
 
