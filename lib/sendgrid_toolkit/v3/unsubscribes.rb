@@ -5,7 +5,7 @@ module SendgridToolkit
         fail NoGroupIdSpecified unless options[:group_id]
 
         response = api_post("asm/groups/#{options[:group_id]}/suppressions", options)
-        fail APIError if response.is_a?(Hash) && response.key?('errors')
+        fail APIError if response.key?('errors')
         response
       end
 
@@ -13,7 +13,7 @@ module SendgridToolkit
         fail NoGroupIdSpecified unless options[:group_id]
 
         response = api_delete("asm/groups/#{options[:group_id]}/suppressions/#{options[:email]}", options)
-        fail APIError if response.is_a?(Hash) && response.key?('errors')
+        fail APIError if response.key?('errors')
         response
       end
 
