@@ -5,7 +5,7 @@ module SendgridToolkit
     class Mail < SendgridToolkit::V3::AbstractSendgridClient
       def send_mail(options = {})
         response = api_post('mail/send', convert_params(options))
-        raise(SendEmailError, "SendMail API refused to send email: #{response["errors"].inspect}") if response["message"] == "error"
+        fail(SendgridToolkit::SendEmailError, response['error']) if response.key?('errors')
         response
       end
 

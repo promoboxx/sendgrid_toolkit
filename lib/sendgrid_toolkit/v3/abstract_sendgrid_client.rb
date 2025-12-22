@@ -18,11 +18,11 @@ module SendgridToolkit
         if (@api_user == "apikey")
           response = HTTParserParty.post("#{BASE_URI}/#{action_name}",
             body: options.to_json, format: :json,
-            headers: { 'Authorization' => "Bearer #{@api_key}" })
+            headers: { 'Content-Type' => 'application/json', 'Authorization' => "Bearer #{@api_key}" })
         else
           response = HTTParserParty.post("#{BASE_URI}/#{action_name}",
             body: options.to_json, format: :json,
-            headers: { 'Authorization' => "Basic #{credentials}" })
+            headers: { 'Content-Type' => 'application/json', 'Authorization' => "Basic #{credentials}" })
         end
         check_response(response)
       end
